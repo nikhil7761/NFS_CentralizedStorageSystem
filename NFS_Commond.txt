@@ -1,0 +1,11 @@
+sudo apt update
+sudo apt install nfs-common -y
+sudo systemctl status nfs-server
+sudo mkdir -p /mnt/nfs_share
+sudo chown nobody:nogroup /mnt/nfs_share
+sudo chmod 777 /mnt/nfs_share
+echo "/mnt/nfs_share *(rw,sync,no_subtree_check)" | sudo tee -a /etc/exports
+sudo exportfs -a
+
+
+sudo mount -t nfs <server_ip>:/mnt/nfs_share /mnt/nfs_client
